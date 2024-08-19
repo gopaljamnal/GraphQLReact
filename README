@@ -1,0 +1,65 @@
+"GraphQL in aggregating and querying data from multiple sources with a single query."
+
+GraphiQL Interface:
+
+    Once the server is running, you can visit http://localhost:5000/graphql in your web browser.
+    This will open the GraphiQL interface, where you can interactively run GraphQL queries.
+
+Example Query:
+
+    In the GraphiQL interface, you can run a query like the following:
+
+    graphql
+
+query {
+  userData(userId: 1) {
+    profile {
+      id
+      name
+      email
+    }
+    activities {
+      activity
+      timestamp
+    }
+    logs {
+      message
+      timestamp
+    }
+  }
+}
+
+If everything is set up correctly, you should receive a response similar to:
+
+json
+
+        {
+          "data": {
+            "userData": {
+              "profile": {
+                "id": 1,
+                "name": "John Doe",
+                "email": "john@example.com"
+              },
+              "activities": [
+                {
+                  "activity": "Logged in",
+                  "timestamp": "2023-08-13T12:34:56Z"
+                }
+              ],
+              "logs": [
+                {
+                  "message": "User logged in",
+                  "timestamp": "2023-08-13T12:34:56Z"
+                }
+              ]
+            }
+          }
+        }
+
+Explanation of the Result
+
+    Profile Data: The structured data from the SQLite database.
+    Activities: Semi-structured data fetched from an external GraphQL API.
+    Logs: Unstructured data retrieved from Elasticsearch.
+
